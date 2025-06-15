@@ -18,7 +18,7 @@
 
 // System-dependent implementations
 # ifdef __APPLE__
-#  define NULL_STRING "\0"
+#  define NULL_STRING ""
 #  define NULL_POINTER "0x0"
 # else
 #  define NULL_STRING "(null)"
