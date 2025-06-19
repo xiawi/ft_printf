@@ -26,7 +26,6 @@
 # endif
 
 // Parsing
-# define FT_PRINTF_FLAGS "-0# +"
 # define FT_PRINTF_SPECS "cspdiuxX%"
 
 enum	e_flags
@@ -46,5 +45,13 @@ typedef struct s_properties
 	int		precision;
 	char	specifier;
 }	t_properties;
+
+
+// Function pointer typedef
+typedef int	(*t_printer)(t_properties *properties, va_list args);
+
+// Functions
+int	ft_printf(const char *format, ...);
+int	ft_printchar(t_properties *properties, va_list args);
 
 #endif
