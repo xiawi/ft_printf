@@ -12,13 +12,11 @@
 
 #include "libftprintf.h"
 
-int	ft_printchar(t_properties *properties, va_list args)
+int	ft_printchar(t_properties *properties, char c)
 {
-	char	c;
 	int		width;
 	int		padding;
 
-	c = va_arg(args, int);
 	width = properties->field_width;
 	if (!width)
 		width = 1;

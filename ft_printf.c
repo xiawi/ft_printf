@@ -87,46 +87,52 @@ static void	populate_properties(const char **format, t_properties *properties)
 
 static void	parse_flags(const char **format, t_properties *properties)
 {
-	static char	flag_bitmask[128];
-	static char	initialized;
-
-	if (!initialized)
+	while (ft_strchr(FT_PRINTF_FLAGS, **format))
 	{
-		flag_bitmask['-'] = LEFT_ALIGN;
-		flag_bitmask['0'] = ZERO_PADDING;
-		flag_bitmask['#'] = ALT_FORM;
-		flag_bitmask[' '] = SPACE_SIGN;
-		flag_bitmask['+'] = FORCE_SIGN;
-		initialized = 1;
-	}
-	while (flag_bitmask[(unsigned char)**format])
-	{
-		properties->flags |= flag_bitmask[(unsigned char)**format];
+		if (**format == '-')
+		{
+			properties->flags |= LEFT_ALIGN;
+			properties->flags &= ~ZERO_PADDING;
+		}
+		if (**format == '0' && !(properties->flags & LEFT_ALIGN))
+			properties->flags |= ZERO_PADDING;
+		if (**format == '#')
+			properties->flags |= ALT_FORM;
+		if (**format == ' ' && !(properties->flags & FORCE_SIGN))
+			properties->flags |= SPACE_SIGN;
+		if (**format == '+')
+		{
+			properties->flags |= FORCE_SIGN;
+			properties->flags &= ~SPACE_SIGN;
+		}
 		(*format)++;
 	}
 }
 
 static int	dispatch_printer(t_properties *properties, va_list args)
 {
-	static t_printer	printers[128];
-	static char			initialized;
-	t_printer			fn;
+	char	specifier;
 
-	if (!initialized)
+	specifier = properties->specifier;
+	if (specifier == 'c')
+		return (ft_printchar(properties, va_arg(args, int)));
+	if (specifier == 's')
+		return (ft_printstr(properties, va_arg(args, char *)));
+	if (specifier == 'p')
+		return (ft_printptr(properties, va_arg(args, void *)));
+	/*
+	if (specifier == 'd' || specifier == 'i')
+		return (ft_printint(properties, va_arg(args, int)));
+	if (specifier == 'u')
+		return (ft_printuint(properties, va_arg(args, unsigned int)));
+	if (specifier == 'x')
+		return (ft_printhex(properties, va_arg(args, int), HEX_LOWER));
+	if (specifier == 'X')
+		return (ft_printhex(properties, va_arg(args, int), HEX_UPPER));
+	*/
+	if (specifier == '%')
 	{
-		printers['c'] = &ft_printchar;
-		printers['s'] = &ft_printstr;
-//		printers['p'] = &ft_printptr;
-//		printers['d'] = &ft_printint;
-//		printers['i'] = &ft_printint;
-//		printers['u'] = &ft_printuint;
-//		printers['x'] = &ft_printhex_lower;
-//		printers['X'] = &ft_printhex_upper;
-//		printers['%'] = &ft_printpercent;
-		initialized = 1;
+		ft_putchar_fd('%', STDOUT_FILENO);
+		return (1);
 	}
-	fn = printers[(unsigned char)properties->specifier];
-	if (!fn)
-		return (-1);
-	return (fn(properties, args));
 }

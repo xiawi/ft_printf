@@ -25,7 +25,12 @@
 #  define NULL_POINTER "(nil)"
 # endif
 
+// Hex Macros
+# define HEX_UPPER "0123456789ABCDEF"
+# define HEX_LOWER "0123456789abcdef"
+
 // Format parsing
+# define FT_PRINTF_FLAGS "-0# +"
 # define FT_PRINTF_SPECS "cspdiuxX%"
 
 enum	e_flags
@@ -46,16 +51,13 @@ typedef struct s_properties
 	char	specifier;
 }	t_properties;
 
-// Function typedef
-typedef int	(*t_printer)(t_properties *properties, va_list args);
-
 // Functions
 // Main printf
 int		ft_printf(const char *format, ...);
 
 // Format-specific printers
-int		ft_printchar(t_properties *properties, va_list args);
-int		ft_printstr(t_properties *properties, va_list args);
+int		ft_printchar(t_properties *properties, char c);
+int		ft_printstr(t_properties *properties, char *str);
 
 // Helpers
 void	ft_printpadding(int count, char c);

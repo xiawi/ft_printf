@@ -14,14 +14,12 @@
 
 static char	*get_nullstr(t_properties *properties, char *str);
 
-int	ft_printstr(t_properties *properties, va_list args)
+int	ft_printstr(t_properties *properties, char *str)
 {
-	char	*str;
 	int		width;
 	int		str_len;
 	int		padding;
 
-	str = va_arg(args, char *);
 	width = properties->field_width;
 	if (!str)
 		str = get_nullstr(properties, str);
