@@ -16,7 +16,7 @@
 # include <stdarg.h>
 # include "libft.h"
 
-// System-dependent implementations
+// System-dependent defaults
 # ifdef __APPLE__
 #  define NULL_STRING ""
 #  define NULL_POINTER "0x0"
@@ -25,7 +25,7 @@
 #  define NULL_POINTER "(nil)"
 # endif
 
-// Parsing
+// Format parsing
 # define FT_PRINTF_SPECS "cspdiuxX%"
 
 enum	e_flags
@@ -46,14 +46,18 @@ typedef struct s_properties
 	char	specifier;
 }	t_properties;
 
-
-// Function pointer typedef
+// Function typedef
 typedef int	(*t_printer)(t_properties *properties, va_list args);
 
 // Functions
-int	ft_printf(const char *format, ...);
-int	ft_printchar(t_properties *properties, va_list args);
-int	ft_printstr(t_properties *properties, va_list args);
+// Main printf
+int		ft_printf(const char *format, ...);
+
+// Format-specific printers
+int		ft_printchar(t_properties *properties, va_list args);
+int		ft_printstr(t_properties *properties, va_list args);
+
+// Helpers
 void	ft_printpadding(int count, char c);
 
 #endif

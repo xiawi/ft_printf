@@ -15,17 +15,18 @@
 int	ft_printchar(t_properties *properties, va_list args)
 {
 	char	c;
+	int		width;
 	int		padding;
 
 	c = va_arg(args, int);
-	if (!(properties->field_width))
-		properties->field_width = 1;
-	padding = properties->field_width - 1;
+	width = properties->field_width;
+	if (!width)
+		width = 1;
+	padding = width - 1;
 	if (!(properties->flags & LEFT_ALIGN))
 		ft_printpadding(padding, ' ');
 	ft_putchar_fd(c, STDOUT_FILENO);
 	if (properties->flags & LEFT_ALIGN)
 		ft_printpadding(padding, ' ');
-	return (properties->field_width);
+	return (width);
 }
-

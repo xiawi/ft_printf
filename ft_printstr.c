@@ -12,36 +12,38 @@
 
 #include "libftprintf.h"
 
-static char	*getnullstr(t_properties *properties, char *str);
+static char	*get_nullstr(t_properties *properties, char *str);
 
 int	ft_printstr(t_properties *properties, va_list args)
 {
 	char	*str;
-	size_t	str_len;
+	int		width;
+	int		str_len;
 	int		padding;
 
 	str = va_arg(args, char *);
+	width = properties->field_width;
 	if (!str)
-		str = getnullstr(properties, str);
-	str_len = ft_strlen(str);
-	if (properties->flags & HAS_PRECISION)
-		if (properties->precision < str_len)
-			str_len = properties->precision;
-	if (str_len > properties->field_width)
-		properties->field_width = str_len;
-	padding = properties->field_width - str_len;
+		str = get_nullstr(properties, str);
+	str_len = (int)ft_strlen(str);
+	if (properties->flags & HAS_PRECISION && properties->precision < str_len)
+		str_len = properties->precision;
+	if (str_len > width)
+		width = str_len;
+	padding = width - str_len;
 	if (!(properties->flags & LEFT_ALIGN))
 		ft_printpadding(padding, ' ');
 	while (str_len--)
 		ft_putchar_fd(*str++, STDOUT_FILENO);
 	if (properties->flags & LEFT_ALIGN)
 		ft_printpadding(padding, ' ');
-	return (properties->field_width);
+	return (width);
 }
 
-static char	*getnullstr(t_properties *properties, char *str)
+static char	*get_nullstr(t_properties *properties, char *str)
 {
-	if (!(properties->flags & HAS_PRECISION) || properties->precision >= 6)
+	if (!(properties->flags & HAS_PRECISION)
+		|| properties->precision >= (int)ft_strlen(NULL_STRING))
 		str = NULL_STRING;
 	else
 		str = "";
