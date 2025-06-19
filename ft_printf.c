@@ -115,7 +115,7 @@ static int	dispatch_printer(t_properties *properties, va_list args)
 	if (!initialized)
 	{
 		printers['c'] = &ft_printchar;
-//		printers['s'] = &ft_printstr;
+		printers['s'] = &ft_printstr;
 //		printers['p'] = &ft_printptr;
 //		printers['d'] = &ft_printint;
 //		printers['i'] = &ft_printint;

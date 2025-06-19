@@ -53,5 +53,7 @@ typedef int	(*t_printer)(t_properties *properties, va_list args);
 // Functions
 int	ft_printf(const char *format, ...);
 int	ft_printchar(t_properties *properties, va_list args);
+int	ft_printstr(t_properties *properties, va_list args);
+void	ft_printpadding(int count, char c);
 
 #endif

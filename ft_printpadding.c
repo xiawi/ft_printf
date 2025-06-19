@@ -1,31 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printchar.c                                     :+:      :+:    :+:   */
+/*   ft_printpadding.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: weyap <weyap@student.42kl.edu.my>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/06/19 08:54:16 by weyap             #+#    #+#             */
-/*   Updated: 2025/06/19 08:54:16 by weyap            ###   ########.fr       */
+/*   Created: 2025/06/19 09:55:52 by weyap             #+#    #+#             */
+/*   Updated: 2025/06/19 09:55:52 by weyap            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libftprintf.h"
 
-int	ft_printchar(t_properties *properties, va_list args)
+void	ft_printpadding(int count, char c)
 {
-	char	c;
-	int		padding;
-
-	c = va_arg(args, int);
-	if (!(properties->field_width))
-		properties->field_width = 1;
-	padding = properties->field_width - 1;
-	if (!(properties->flags & LEFT_ALIGN))
-		ft_printpadding(padding, ' ');
-	ft_putchar_fd(c, STDOUT_FILENO);
-	if (properties->flags & LEFT_ALIGN)
-		ft_printpadding(padding, ' ');
-	return (properties->field_width);
+	while (count--)
+		ft_putchar_fd(c, STDOUT_FILENO);
 }
-
