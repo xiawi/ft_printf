@@ -58,6 +58,7 @@ int		ft_printf(const char *format, ...);
 // Format-specific printers
 int		ft_printchar(t_properties *properties, char c);
 int		ft_printstr(t_properties *properties, char *str);
+int		ft_printptr(t_properties *properties, void *pointer);
 
 // Helpers
 void	ft_printpadding(int count, char c);

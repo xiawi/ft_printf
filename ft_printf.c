@@ -120,9 +120,9 @@ static int	dispatch_printer(t_properties *properties, va_list args)
 		return (ft_printstr(properties, va_arg(args, char *)));
 	if (specifier == 'p')
 		return (ft_printptr(properties, va_arg(args, void *)));
-	/*
 	if (specifier == 'd' || specifier == 'i')
 		return (ft_printint(properties, va_arg(args, int)));
+	/*
 	if (specifier == 'u')
 		return (ft_printuint(properties, va_arg(args, unsigned int)));
 	if (specifier == 'x')
